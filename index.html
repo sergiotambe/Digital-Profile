@@ -16,14 +16,14 @@
     <meta property="og:url" content="https://sergiotambe.github.io/Digital-Profile/">
     <meta name="twitter:card" content="summary_large_image">
 
-    <!-- Favicon (emoji incorporata; sostituiscila con img/favicon.png se vuoi un'icona tua) -->
+    <!-- Favicon -->
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%8A%3C/text%3E%3C/svg%3E">
 
-    <!-- Performance: preconnect verso i domini esterni -->
+    <!-- Performance e Google Fonts (Inter + Plus Jakarta Sans) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- Statistiche leggere e senza cookie (QR: usa il link con ?src=qr).
@@ -45,9 +45,15 @@
             min-height: 100vh;
             min-height: 100dvh;
             background-color: #a8e0d7;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* Sfondo su livello fisso: evita gli scatti di background-attachment: fixed sui telefoni */
+        /* Font con più personalità per titoli e nome */
+        h1, h2, h3, .sidebar-name {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        /* Sfondo su livello fisso */
         body::before {
             content: "";
             position: fixed;
@@ -61,18 +67,20 @@
         }
 
         :focus-visible {
-            outline: 3px solid #0d9488;
+            outline: 3px solid #0f766e;
             outline-offset: 2px;
         }
 
+        /* ---------- Sidebar e Navigazione ---------- */
         .sidebar {
             width: 260px;
             background-color: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(10px);
-            border-right: 1px solid rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-right: 1px solid rgba(255, 255, 255, 0.5);
             display: flex;
             flex-direction: column;
-            padding: 30px 20px;
+            padding: 32px 20px;
             position: fixed;
             height: 100vh;
             height: 100dvh;
@@ -81,34 +89,45 @@
             z-index: 100;
         }
 
-        .sidebar-title {
-            font-size: 16px;
-            font-weight: 700;
-            margin-bottom: 25px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #2c5282;
-            text-align: center;
+        .sidebar-header {
+            margin-bottom: 28px;
+            padding: 0 12px;
+        }
+
+        .sidebar-name {
+            font-size: 19px;
+            font-weight: 800;
+            color: #0f172a;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+        }
+
+        .sidebar-role {
+            font-size: 13px;
+            font-weight: 400;
+            color: #475569;
+            margin-top: 4px;
         }
 
         .nav-links {
             list-style: none;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 8px;
         }
 
         .nav-btn {
+            position: relative;
             display: flex;
             align-items: center;
             gap: 12px;
-            padding: 12px 15px;
+            padding: 12px 16px;
             border-radius: 10px;
             background-color: transparent;
             border: none;
-            color: #1a202c;
+            color: #1e293b;
             font-family: inherit;
-            font-size: 14px;
+            font-size: 14.5px;
             font-weight: 600;
             cursor: pointer;
             text-align: left;
@@ -116,21 +135,40 @@
             width: 100%;
         }
 
+        .nav-btn i {
+            width: 1.25em;
+            text-align: center;
+            flex-shrink: 0;
+            font-size: 15px;
+        }
+
         .nav-btn:hover {
             background-color: rgba(255, 255, 255, 0.8);
-            transform: translateX(3px);
+            transform: translateX(2px);
         }
 
         .nav-btn.active {
             background-color: #ffffff;
-            color: #0d9488;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            color: #0f766e;
+            box-shadow: 0 4px 12px rgba(15, 118, 110, 0.07);
         }
 
+        .nav-btn.active::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 22%;
+            bottom: 22%;
+            width: 4px;
+            background-color: #0d9488;
+            border-radius: 0 4px 4px 0;
+        }
+
+        /* ---------- Contenuto Principale ---------- */
         .main-content {
             margin-left: 260px;
             flex: 1;
-            padding: 40px 20px;
+            padding: 45px 24px;
             display: flex;
             justify-content: center;
             align-items: flex-start;
@@ -140,13 +178,19 @@
 
         .card-container {
             width: 100%;
-            max-width: 500px;
-            margin-top: 20px;
+            max-width: 680px;
+            margin-top: 10px;
         }
 
         .tab-section {
             display: none;
             animation: fadeIn 0.3s ease-in-out;
+            margin: 0 auto;
+        }
+
+        /* Mantiene stretta la Home e le sezioni di elenco bottoni, lasciando a 680px Progetti e Competenze */
+        .tab-section.narrow-tab {
+            max-width: 500px;
         }
 
         .tab-section.active-tab {
@@ -158,179 +202,250 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* ---------- Home e Punto Focale ---------- */
         .profile-section {
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 26px;
         }
 
         .profile-pic {
-            width: 110px;
-            height: 110px;
+            width: 140px;
+            height: 140px;
             border-radius: 50%;
             object-fit: cover;
-            margin: 0 auto 15px auto;
+            margin: 0 auto 20px auto;
             display: block;
-            border: 3px solid #ffffff;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            border: 4px solid #ffffff;
+            box-shadow:
+                0 0 0 4px rgba(13, 148, 136, 0.28),
+                0 12px 32px rgba(13, 148, 136, 0.38);
         }
 
         .profile-name {
-            font-size: 22px;
+            font-size: 33px;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            line-height: 1.15;
+            margin-bottom: 6px;
+            color: #0f172a;
+        }
+
+        .profile-role {
+            font-size: 16px;
             font-weight: 700;
-            margin-bottom: 8px;
+            color: #0f766e;
+            margin-bottom: 12px;
         }
 
         .profile-bio {
-            font-size: 13px;
+            font-size: 15px;
             font-weight: 500;
-            line-height: 1.5;
-            color: #2d3748;
-            margin: 0 auto 20px auto;
+            line-height: 1.55;
+            color: #334155;
+            max-width: 36ch;
+            margin: 0 auto;
         }
 
         .social-icons {
             display: flex;
             justify-content: center;
-            gap: 15px;
-            margin-bottom: 30px;
+            gap: 18px;
+            margin-bottom: 32px;
         }
 
         .social-icons a {
             color: #0f172a;
             font-size: 22px;
             text-decoration: none;
-            transition: transform 0.2s;
+            transition: transform 0.2s, color 0.2s;
         }
 
         .social-icons a:hover {
             transform: scale(1.15);
+            color: #0f766e;
         }
 
         .section-heading {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 20px;
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: -0.015em;
+            margin-bottom: 22px;
             text-align: center;
+            color: #0f172a;
         }
 
+        /* ---------- Pulsanti e Azioni ---------- */
         .link-button {
             display: flex;
             align-items: center;
-            background-color: rgba(255, 255, 255, 0.85);
-            border-radius: 12px;
-            padding: 12px 15px;
+            background-color: rgba(255, 255, 255, 0.88);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 14px;
+            padding: 13px 16px;
             margin-bottom: 12px;
             text-decoration: none;
-            color: #000;
+            color: #0f172a;
             font-family: inherit;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            box-shadow: 0 4px 8px rgba(15, 23, 42, 0.03);
             transition: all 0.2s ease;
             cursor: pointer;
-            border: none;
             width: 100%;
         }
 
         .link-button:hover {
             background-color: #ffffff;
             transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.06);
+            box-shadow: 0 8px 16px rgba(15, 118, 110, 0.08);
         }
 
         .btn-thumbnail {
-            width: 40px;
-            height: 40px;
-            border-radius: 8px;
-            object-fit: cover;
-            background-color: #f1f5f9;
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            background-color: #ccfbf1;
+            color: #0f766e;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
+            font-size: 18px;
             flex-shrink: 0;
         }
 
         .btn-text {
             flex-grow: 1;
             text-align: center;
-            font-size: 13px;
+            font-size: 15px;
             font-weight: 600;
-            padding: 0 10px;
+            padding: 0 12px;
+        }
+
+        .btn-trailing-icon {
+            color: #64748b;
+            font-size: 14px;
+            width: 20px;
+            text-align: center;
+            flex-shrink: 0;
+            transition: transform 0.2s, color 0.2s;
+        }
+
+        .link-button:hover .btn-trailing-icon {
+            color: #0f766e;
+            transform: translateX(2px);
+        }
+
+        /* Pulsante principale (Scarica il CV) */
+        .link-button.primary {
+            background-color: #0f766e;
+            border-color: #0f766e;
+            color: #ffffff;
+            box-shadow: 0 8px 20px rgba(15, 118, 110, 0.25);
+        }
+
+        .link-button.primary:hover {
+            background-color: #115e59;
+            border-color: #115e59;
+            box-shadow: 0 10px 24px rgba(15, 118, 110, 0.32);
+        }
+
+        .link-button.primary .btn-thumbnail {
+            background-color: rgba(255, 255, 255, 0.18);
+            color: #ffffff;
+        }
+
+        .link-button.primary .btn-trailing-icon {
+            color: rgba(255, 255, 255, 0.9);
         }
 
         /* ---------- Progetti ---------- */
         .project-card {
             background-color: rgba(255, 255, 255, 0.85);
-            border-radius: 12px;
-            padding: 16px 18px;
-            margin-bottom: 12px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.75);
+            border-radius: 18px;
+            padding: 20px 22px;
+            margin-bottom: 16px;
+            box-shadow:
+                0 10px 25px -5px rgba(13, 148, 136, 0.15),
+                0 4px 10px -2px rgba(15, 118, 110, 0.06);
         }
 
         .project-title {
-            font-size: 15px;
+            font-size: 17px;
             font-weight: 700;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
+            color: #0f172a;
         }
 
         .project-text {
-            font-size: 13px;
-            line-height: 1.55;
-            color: #1a202c;
-            margin-bottom: 8px;
+            font-size: 14.5px;
+            line-height: 1.6;
+            color: #1e293b;
+            margin-bottom: 12px;
         }
 
         .project-links {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
-            margin-top: 12px;
+            margin-top: 14px;
         }
 
         .project-links a {
-            font-size: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
             font-weight: 600;
-            color: #0d9488;
+            color: #0f766e;
             text-decoration: none;
-            padding: 6px 12px;
-            border: 1px solid #0d9488;
+            padding: 6px 14px;
+            border: 1.5px solid #0f766e;
             border-radius: 20px;
             transition: background-color 0.2s, color 0.2s;
         }
 
         .project-links a:hover {
-            background-color: #0d9488;
-            color: #fff;
+            background-color: #0f766e;
+            color: #ffffff;
         }
 
-        /* ---------- Chip competenze ---------- */
+        /* ---------- Chip e Competenze ---------- */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+        }
+
+        .skill-group {
+            background-color: rgba(255, 255, 255, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            border-radius: 16px;
+            padding: 18px 20px;
+            box-shadow: 0 4px 12px rgba(13, 148, 136, 0.07);
+        }
+
+        .skill-group h3 {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #0f172a;
+        }
+
         .chips {
             list-style: none;
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
-            margin-bottom: 4px;
         }
 
         .chips li {
-            font-size: 12px;
+            font-size: 13px;
             font-weight: 600;
-            background-color: #f1f5f9;
-            color: #1e293b;
-            padding: 5px 11px;
+            background-color: #ccfbf1;
+            color: #115e59;
+            padding: 5px 12px;
             border-radius: 20px;
-        }
-
-        .skill-group {
-            background-color: rgba(255, 255, 255, 0.85);
-            border-radius: 12px;
-            padding: 16px 18px;
-            margin-bottom: 12px;
-        }
-
-        .skill-group h3 {
-            font-size: 14px;
-            font-weight: 700;
-            margin-bottom: 10px;
         }
 
         /* ---------- Popup ---------- */
@@ -341,8 +456,9 @@
             width: 100vw;
             height: 100vh;
             height: 100dvh;
-            background-color: rgba(0, 0, 0, 0.4);
+            background-color: rgba(15, 23, 42, 0.45);
             backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
             display: none;
             justify-content: center;
             align-items: center;
@@ -353,11 +469,11 @@
         .modal-card {
             background-color: #ffffff;
             width: 100%;
-            max-width: 420px;
-            border-radius: 28px;
-            padding: 30px 25px 25px 25px;
+            max-width: 460px;
+            border-radius: 24px;
+            padding: 26px 26px 24px 26px;
             position: relative;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.2);
             animation: modalUp 0.25s ease-out;
             display: flex;
             flex-direction: column;
@@ -370,44 +486,25 @@
             to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
-        .modal-header {
-            font-size: 16px;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 20px;
-            color: #000;
-        }
-
-        .modal-body {
-            font-size: 13px;
-            line-height: 1.6;
-            color: #1a202c;
-            overflow-y: auto;
-            margin-bottom: 20px;
-            padding-right: 5px;
-        }
-
-        .modal-body p {
-            margin-bottom: 12px;
-        }
-
-        .modal-body ul {
-            padding-left: 18px;
-        }
-
-        .modal-body li {
-            margin-bottom: 10px;
-        }
-
-        .modal-footer {
+        .modal-top {
             display: flex;
-            justify-content: flex-end;
-            gap: 10px;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .modal-header {
+            font-size: 18px;
+            font-weight: 800;
+            line-height: 1.3;
+            color: #0f172a;
+            padding-top: 4px;
         }
 
         .modal-circle-btn {
-            width: 40px;
-            height: 40px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             border: 1px solid #e2e8f0;
             background-color: #f8fafc;
@@ -416,15 +513,39 @@
             justify-content: center;
             cursor: pointer;
             color: #334155;
-            font-size: 16px;
+            font-size: 15px;
+            flex-shrink: 0;
             transition: all 0.2s;
         }
 
         .modal-circle-btn:hover {
-            background-color: #f1f5f9;
+            background-color: #ccfbf1;
+            border-color: #99f6e4;
+            color: #0f766e;
             transform: scale(1.05);
         }
 
+        .modal-body {
+            font-size: 14.5px;
+            line-height: 1.65;
+            color: #1e293b;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+
+        .modal-body p {
+            margin-bottom: 12px;
+        }
+
+        .modal-body ul {
+            padding-left: 20px;
+        }
+
+        .modal-body li {
+            margin-bottom: 10px;
+        }
+
+        /* ---------- Mobile e Tablet ---------- */
         @media (max-width: 768px) {
             body {
                 flex-direction: column;
@@ -433,30 +554,76 @@
             .sidebar {
                 width: 100%;
                 height: auto;
-                position: relative;
-                padding: 15px;
+                position: sticky;
+                top: 0;
+                padding: 12px 15px;
                 border-right: none;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.5);
             }
 
-            .sidebar-title {
+            .sidebar-header {
+                display: flex;
+                align-items: baseline;
+                justify-content: space-between;
                 margin-bottom: 10px;
+                padding: 0 4px;
+            }
+
+            .sidebar-name {
+                font-size: 16px;
+            }
+
+            .sidebar-role {
+                font-size: 12px;
+                margin-top: 0;
             }
 
             .nav-links {
                 flex-direction: row;
                 overflow-x: auto;
-                padding-bottom: 5px;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                padding-bottom: 2px;
+                gap: 8px;
+            }
+
+            .nav-links::-webkit-scrollbar {
+                display: none;
+            }
+
+            .nav-links li {
+                scroll-snap-align: start;
+                flex-shrink: 0;
             }
 
             .nav-btn {
                 white-space: nowrap;
-                justify-content: center;
+                padding: 9px 14px;
+                font-size: 14px;
+            }
+
+            .nav-btn:hover {
+                transform: none;
+            }
+
+            .nav-btn.active::before {
+                left: 20%;
+                right: 20%;
+                top: auto;
+                bottom: 0;
+                width: auto;
+                height: 3px;
+                border-radius: 3px 3px 0 0;
             }
 
             .main-content {
                 margin-left: 0;
-                padding: 20px 15px;
+                padding: 28px 16px 40px 16px;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -471,9 +638,9 @@
 <body>
 
     <nav class="sidebar" aria-label="Navigazione principale">
-        <div class="sidebar-title">
-            Data Scientist<br>
-            AI Engineer
+        <div class="sidebar-header">
+            <div class="sidebar-name">Sergio Tambe'</div>
+            <div class="sidebar-role">Data Scientist &amp; AI Engineer</div>
         </div>
         <ul class="nav-links">
             <li>
@@ -513,10 +680,11 @@
         <div class="card-container">
 
             <!-- ================= HOME ================= -->
-            <section id="home" class="tab-section active-tab">
+            <section id="home" class="tab-section narrow-tab active-tab">
                 <div class="profile-section">
-                    <img src="img/fotocvvv.png" alt="Ritratto di Sergio Tambè" class="profile-pic" width="110" height="110">
-                    <h1 class="profile-name">Sergio Tambè</h1>
+                    <img src="img/fotocvvv.png" alt="Ritratto di Sergio Tambe'" class="profile-pic" width="140" height="140">
+                    <h1 class="profile-name">Sergio Tambe'</h1>
+                    <p class="profile-role">Data Scientist &amp; AI Engineer</p>
                     <p class="profile-bio">
                         Master Data Scientist specializzato in Machine Learning, Deep Learning, AI, Computer Vision e Data Analysis
                     </p>
@@ -524,34 +692,34 @@
 
                 <div class="social-icons">
                     <a href="https://www.instagram.com/sergio.t02/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
-                    <!-- WhatsApp ed email vengono composti da JavaScript (vedi in fondo) per non esporre i dati ai bot -->
                     <a href="#" id="link-whatsapp" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></a>
                     <a href="https://www.linkedin.com/in/sergio-tambe-a37506319/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a>
                     <a href="#" id="link-email" aria-label="Email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a>
                     <a href="https://github.com/sergiotambe" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a>
                 </div>
 
-                <!-- CV -->
-                <a href="SergioTambe_CV_it (3).pdf" class="link-button" target="_blank" rel="noopener noreferrer">
-                    <img src="img/logocvv.jpg" class="btn-thumbnail" alt="Icona del curriculum" width="40" height="40">
+                <!-- CV (Pulsante Principale) -->
+                <a href="SergioTambe_CV_it (3).pdf" class="link-button primary" target="_blank" rel="noopener noreferrer">
+                    <div class="btn-thumbnail"><i class="fa-solid fa-file-arrow-down" aria-hidden="true"></i></div>
                     <span class="btn-text">Scarica il CV (PDF)</span>
-                    <i class="fa-solid fa-download" aria-hidden="true"></i>
+                    <i class="fa-solid fa-download btn-trailing-icon" aria-hidden="true"></i>
                 </a>
 
+                <!-- Pulsanti Secondari -->
                 <a href="https://drive.google.com/drive/folders/1QTUczIA8b0j8_DVKCAmGsluUEURgaurk" class="link-button" target="_blank" rel="noopener noreferrer">
                     <div class="btn-thumbnail"><i class="fa-solid fa-certificate" aria-hidden="true"></i></div>
                     <span class="btn-text">Certificazioni</span>
-                    <i class="fa-solid fa-ellipsis-vertical" aria-hidden="true"></i>
+                    <i class="fa-solid fa-arrow-up-right-from-square btn-trailing-icon" aria-hidden="true"></i>
                 </a>
 
                 <a href="https://github.com/sergiotambe" class="link-button" target="_blank" rel="noopener noreferrer">
-                    <div class="btn-thumbnail"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i></div>
+                    <div class="btn-thumbnail"><i class="fa-brands fa-github" aria-hidden="true"></i></div>
                     <span class="btn-text">GitHub</span>
-                    <i class="fa-solid fa-ellipsis-vertical" aria-hidden="true"></i>
+                    <i class="fa-solid fa-arrow-up-right-from-square btn-trailing-icon" aria-hidden="true"></i>
                 </a>
             </section>
 
-            <!-- ================= PROGETTI (generati da PROJECTS nello script) ================= -->
+            <!-- ================= PROGETTI ================= -->
             <section id="progetti" class="tab-section">
                 <h2 class="section-heading">Progetti</h2>
                 <div id="projects-list"></div>
@@ -561,99 +729,100 @@
             <section id="competenze" class="tab-section">
                 <h2 class="section-heading">Competenze tecniche</h2>
 
-                <div class="skill-group">
-                    <h3>Linguaggi</h3>
-                    <ul class="chips">
-                        <li>Python</li>
-                        <li>R</li>
-                        <li>SQL</li>
-                    </ul>
-                </div>
+                <div class="skills-grid">
+                    <div class="skill-group">
+                        <h3>Linguaggi</h3>
+                        <ul class="chips">
+                            <li>Python</li>
+                            <li>R</li>
+                            <li>SQL</li>
+                        </ul>
+                    </div>
 
-                <div class="skill-group">
-                    <h3>Data science e AI</h3>
-                    <ul class="chips">
-                        <li>Machine Learning</li>
-                        <li>Deep Learning</li>
-                        <li>Computer Vision</li>
-                        <li>Statistical Unsupervised Learning</li>
-                        <li>Time Series</li>
-                        <li>Data Mining</li>
-                        <li>Network Science</li>
-                        <li>Optimization</li>
-                    </ul>
-                </div>
+                    <div class="skill-group">
+                        <h3>Visualizzazione e BI</h3>
+                        <ul class="chips">
+                            <li>Power BI</li>
+                            <li>Streamlit</li>
+                            <li>Gephi</li>
+                        </ul>
+                    </div>
 
-                <div class="skill-group">
-                    <h3>Visualizzazione e business intelligence</h3>
-                    <ul class="chips">
-                        <li>Power BI</li>
-                        <li>Streamlit</li>
-                        <li>Gephi</li>
-                    </ul>
-                </div>
+                    <div class="skill-group">
+                        <h3>Data Science e AI</h3>
+                        <ul class="chips">
+                            <li>Machine Learning</li>
+                            <li>Deep Learning</li>
+                            <li>Computer Vision</li>
+                            <li>Statistical Unsupervised Learning</li>
+                            <li>Time Series</li>
+                            <li>Data Mining</li>
+                            <li>Network Science</li>
+                            <li>Optimization</li>
+                        </ul>
+                    </div>
 
-                <div class="skill-group">
-                    <h3>Dati e automazione</h3>
-                    <ul class="chips">
-                        <li>Airtable</li>
-                        <li>Chatbot e sondaggi automatizzati</li>
-                        <li>Dashboard</li>
-                    </ul>
+                    <div class="skill-group">
+                        <h3>Dati e automazione</h3>
+                        <ul class="chips">
+                            <li>Airtable</li>
+                            <li>Chatbot e sondaggi automatizzati</li>
+                            <li>Dashboard</li>
+                        </ul>
+                    </div>
                 </div>
             </section>
 
             <!-- ================= LAUREA MAGISTRALE ================= -->
-            <section id="magistrale" class="tab-section">
+            <section id="magistrale" class="tab-section narrow-tab">
                 <h2 class="section-heading">Laurea Magistrale in Data Science</h2>
-                <!-- TODO: aggiungi qui sotto un paragrafo con università, anni di corso, voto e titolo della tesi, ad esempio:
-                <p class="project-text">Università XXX · 2024–2026 · Tesi: "titolo"</p> -->
+                <!-- TODO: aggiungi qui sotto un paragrafo con università, anni di corso, voto e titolo della tesi -->
 
                 <button class="link-button" data-modal="modal-materie-magistrale">
-                    <img src="img/materie.png" alt="Icona elenco materie" class="btn-thumbnail" width="40" height="40" loading="lazy">
+                    <div class="btn-thumbnail"><i class="fa-solid fa-book-open-reader" aria-hidden="true"></i></div>
                     <span class="btn-text">Principali materie studiate</span>
-                    <i class="fa-solid fa-ellipsis-vertical" aria-hidden="true"></i>
+                    <i class="fa-solid fa-chevron-right btn-trailing-icon" aria-hidden="true"></i>
                 </button>
 
                 <button class="link-button" data-modal="modal-competenze-magistrale">
-                    <img src="img/competenze.png" alt="Icona competenze professionali" class="btn-thumbnail" width="40" height="40" loading="lazy">
+                    <div class="btn-thumbnail"><i class="fa-solid fa-award" aria-hidden="true"></i></div>
                     <span class="btn-text">Competenze professionali acquisite</span>
-                    <i class="fa-solid fa-ellipsis-vertical" aria-hidden="true"></i>
+                    <i class="fa-solid fa-chevron-right btn-trailing-icon" aria-hidden="true"></i>
                 </button>
 
                 <button class="link-button" data-modal="modal-erasmus">
-                    <img src="img/logo_erasmus.png" alt="Logo Erasmus+" class="btn-thumbnail" width="40" height="40" loading="lazy">
+                    <div class="btn-thumbnail"><i class="fa-solid fa-earth-europe" aria-hidden="true"></i></div>
                     <span class="btn-text">Erasmus+ Universidade do Porto</span>
-                    <i class="fa-solid fa-ellipsis-vertical" aria-hidden="true"></i>
+                    <i class="fa-solid fa-chevron-right btn-trailing-icon" aria-hidden="true"></i>
                 </button>
             </section>
 
             <!-- ================= LAUREA TRIENNALE ================= -->
-            <section id="triennale" class="tab-section">
+            <section id="triennale" class="tab-section narrow-tab">
                 <h2 class="section-heading">Laurea Triennale in Economia</h2>
                 <!-- TODO: aggiungi università, anni di corso e voto -->
 
                 <button class="link-button" data-modal="modal-materie-triennale">
-                    <img src="img/materie.png" alt="Icona elenco materie" class="btn-thumbnail" width="40" height="40" loading="lazy">
+                    <div class="btn-thumbnail"><i class="fa-solid fa-book-open-reader" aria-hidden="true"></i></div>
                     <span class="btn-text">Principali materie studiate</span>
-                    <i class="fa-solid fa-ellipsis-vertical" aria-hidden="true"></i>
+                    <i class="fa-solid fa-chevron-right btn-trailing-icon" aria-hidden="true"></i>
                 </button>
 
                 <button class="link-button" data-modal="modal-competenze-triennale">
-                    <img src="img/competenze.png" alt="Icona competenze professionali" class="btn-thumbnail" width="40" height="40" loading="lazy">
+                    <div class="btn-thumbnail"><i class="fa-solid fa-award" aria-hidden="true"></i></div>
                     <span class="btn-text">Competenze professionali acquisite</span>
-                    <i class="fa-solid fa-ellipsis-vertical" aria-hidden="true"></i>
+                    <i class="fa-solid fa-chevron-right btn-trailing-icon" aria-hidden="true"></i>
                 </button>
             </section>
 
             <!-- ================= ESPERIENZE ================= -->
-            <section id="esperienze" class="tab-section">
+            <section id="esperienze" class="tab-section narrow-tab">
                 <h2 class="section-heading">Esperienze lavorative</h2>
 
                 <button class="link-button" data-modal="modal-esperienza">
-                    <img src="img/tirocinio.png" alt="Icona del tirocinio" class="btn-thumbnail" width="40" height="40" loading="lazy">
+                    <div class="btn-thumbnail"><i class="fa-solid fa-laptop-code" aria-hidden="true"></i></div>
                     <span class="btn-text">Digital Field Operations Assistant</span>
-                    <i class="fa-solid fa-ellipsis-vertical" aria-hidden="true"></i>
+                    <i class="fa-solid fa-chevron-right btn-trailing-icon" aria-hidden="true"></i>
                 </button>
             </section>
 
@@ -668,18 +837,16 @@
            DATI – modifica qui i contenuti, il resto del codice li usa da solo
            ===================================================================== */
 
-        // TODO: sostituisci i segnaposto con i tuoi 3-5 progetti migliori.
-        // Per ogni progetto: titolo, problema risolto, stack, risultato concreto, link a repo e demo (opzionale).
         const PROJECTS = [
             {
                 title: "Lip Reading",
-                problem: "Comparazione di modelli che analizzano sequenze di frame video ritagliati sulla regione della bocca, senza audio, per prevedere la parola pronunciata",
+                problem: "Comparazione di modelli che analizzano sequenze di frame video ritagliati sulla regione della bocca, senza audio, per prevedere la parola pronunciata.",
                 stack: ["Python", "Deep Learning"],
                 repo: "https://github.com/sergiotambe/Lip-Reading-DeepLearning",
             },
             {
                 title: "Realtime Privacy Filter",
-                problem: "Tool desktop per l'anonimizzazione dei volti in tempo reale, pensato per garantire la privacy durante le videochiamate e le interviste",
+                problem: "Tool desktop per l'anonimizzazione dei volti in tempo reale, pensato per garantire la privacy durante le videochiamate e le interviste.",
                 stack: ["Python", "Multimedia Data Modelling"],
                 repo: "https://github.com/sergiotambe/Realtime-Privacy-Filter",
             },
@@ -691,7 +858,6 @@
             }
         ];
 
-        // Popup: "list" genera una vera lista <ul><li>, "text" un paragrafo. Il grassetto si scrive con <strong>.
         const MODALS = {
             "modal-materie-magistrale": {
                 title: "Principali materie studiate",
@@ -736,7 +902,6 @@
             },
             "modal-esperienza": {
                 title: "Digital Field Operations Assistant - Fieldgood s.r.l.",
-                // TODO: aggiungi ente/azienda, periodo e un risultato misurabile (ad esempio numero di dashboard, sondaggi o chatbot gestiti).
                 intro: "<strong>Tirocinio universitario</strong> in cui le attività principali sono state:",
                 list: [
                     "Utilizzo avanzato di <strong>Airtable</strong> per la raccolta, la gestione e l'analisi dei dati, inclusa la creazione di <strong>dashboard</strong>.",
@@ -748,7 +913,7 @@
         };
 
         /* =====================================================================
-           CONTATTI – composti al caricamento, così non compaiono per intero nel codice
+           CONTATTI
            ===================================================================== */
         (function () {
             const wa = ['39', '331', '2937413'].join('');
@@ -769,17 +934,17 @@
                     <h3 class="project-title">${esc(p.title)}</h3>
                     <p class="project-text">${esc(p.problem)}</p>
                     <ul class="chips">${p.stack.map(s => `<li>${esc(s)}</li>`).join('')}</ul>
-                    <p class="project-text" style="margin-top:10px"><strong></p>
+                    ${p.result ? `<p class="project-text" style="margin-top:10px"><strong>Risultato:</strong> ${esc(p.result)}</p>` : ''}
                     <div class="project-links">
-                        ${p.repo ? `<a href="${esc(p.repo)}" target="_blank" rel="noopener noreferrer">Codice su GitHub</a>` : ''}
-                        ${p.demo ? `<a href="${esc(p.demo)}" target="_blank" rel="noopener noreferrer">Demo</a>` : ''}
+                        ${p.repo ? `<a href="${esc(p.repo)}" target="_blank" rel="noopener noreferrer">Codice su GitHub <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>` : ''}
+                        ${p.demo ? `<a href="${esc(p.demo)}" target="_blank" rel="noopener noreferrer">Demo <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>` : ''}
                     </div>
                 </article>
             `).join('');
         })();
 
         /* =====================================================================
-           POPUP (generati dai dati, accessibili da tastiera)
+           POPUP (con pulsante di chiusura in alto a destra)
            ===================================================================== */
         let lastFocused = null;
 
@@ -801,14 +966,15 @@
 
                 overlay.innerHTML = `
                     <div class="modal-card">
-                        <h2 class="modal-header" id="${id}-title">${m.title}</h2>
-                        <div class="modal-body">${body}</div>
-                        <div class="modal-footer">
-                            <button type="button" class="modal-circle-btn" data-close aria-label="Chiudi"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+                        <div class="modal-top">
+                            <h2 class="modal-header" id="${id}-title">${m.title}</h2>
+                            <button type="button" class="modal-circle-btn" data-close aria-label="Chiudi">
+                                <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                            </button>
                         </div>
+                        <div class="modal-body">${body}</div>
                     </div>`;
 
-                // chiusura con click sullo sfondo o sul pulsante
                 overlay.addEventListener('click', e => {
                     if (e.target === overlay || e.target.closest('[data-close]')) closeModal(id);
                 });
@@ -840,7 +1006,6 @@
             const open = openModalId();
             if (!open) return;
             if (e.key === 'Escape') closeModal(open.id);
-            // il popup ha un solo elemento attivabile: tieni il focus al suo interno
             if (e.key === 'Tab') {
                 e.preventDefault();
                 open.querySelector('[data-close]').focus();
@@ -870,18 +1035,15 @@
             btn.addEventListener('click', () => {
                 const tabId = btn.dataset.tab;
                 showTab(tabId);
-                // aggiorna l'URL senza far scorrere la pagina; lascia intatti eventuali parametri (?src=qr)
                 history.pushState(null, '', tabId === 'home'
                     ? location.pathname + location.search
                     : location.pathname + location.search + '#' + tabId);
             });
         });
 
-        // pulsanti Indietro/Avanti del browser e modifica manuale dell'hash
         window.addEventListener('popstate', () => showTab(location.hash.slice(1)));
         window.addEventListener('hashchange', () => showTab(location.hash.slice(1)));
 
-        // apertura iniziale: se l'URL contiene un hash, mostra quel tab
         showTab(location.hash.slice(1));
     </script>
 </body>
